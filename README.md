@@ -1,6 +1,7 @@
 # Nix Workshop
 
 ## Structure
+```
 .
 ├── bootstrap 
 │   ├── Dockerfile
@@ -11,3 +12,4 @@
 ├── README.md
 ├── rust-flake-template
 └── slides
+```
