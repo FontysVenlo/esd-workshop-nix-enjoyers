@@ -40,6 +40,8 @@ exit
 ### 2. Building u-root
 Let's see whether the "generic" flake works for u-root without any modifications - run `nix build .#` and see what happens :)
 
+Hint: the shell inside the container is very ver minimal - you will need to use some text editor to modify flake.nix inside of the container [see `nix-env` manual](https://nixos.org/manual/nixpkgs/stable/#sec-building-environment)
+
 ## References
 <a id="1">[1]</a> [buildNodeModules - The dumbest node to nix packaging tool yet!](https://discourse.nixos.org/t/buildnodemodules-the-dumbest-node-to-nix-packaging-tool-yet/35733) \
 <a id="2">[2]</a> [Restrict fixed-output derivations](https://github.com/NixOS/nix/issues/2270) \
