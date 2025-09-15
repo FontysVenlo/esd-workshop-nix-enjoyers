@@ -1,0 +1,18 @@
+services:
+  nix:
+    build: ./bootstrap
+    image: nix-flake-env
+    tty: true
+    stdin_open: true
+    working_dir: /work
+    volumes:
+      - .:/work
+    environment:
+      - ENV=/etc/profile
+      - USER=root
+      - PATH=/nix/var/nix/profiles/default/bin:/nix/var/nix/profiles/default/sbin:/bin:/sbin:/usr/bin:/usr/sbin
+      - GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt
+      - NIX_SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+    ports:
+      - "8000:8000"
+    command: /bin/sh
