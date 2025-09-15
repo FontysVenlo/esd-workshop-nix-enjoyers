@@ -22,7 +22,23 @@ need for traditional shell scripts, busybox, and complex build chains. Now, its 
 </br>
 Please make sure that you have followed steps described in [bootstrap](../bootstrap/README.md) section!
 
+### 1. Entering a development shell
+Once in a container's shell, navigate to the `/u-root` directory.
 
+From here you should be able to enter the Nix development shell (see `/u-root/shell.nix` and play around if you want):
+
+```bash
+nix develop
+
+# now from within the shell run gomod2nix
+gomod2nix generate
+
+# before building u-root, exit the development shell (bonus question: why building inside of development shell will fail?)
+exit
+```
+
+### 2. Building u-root
+Let's see whether the "generic" flake works for u-root without any modifications - run `nix build .#` and see what happens :)
 
 ## References
 <a id="1">[1]</a> [buildNodeModules - The dumbest node to nix packaging tool yet!](https://discourse.nixos.org/t/buildnodemodules-the-dumbest-node-to-nix-packaging-tool-yet/35733) \
