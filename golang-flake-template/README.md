@@ -10,8 +10,17 @@ each package gets its own copy of that module in its own  vendor/  directory. Ni
 module between the two builds, so you end up downloading and compiling the same code multiple times. Additionally, whenever the source of any dependency changes you have to update both
 `sha256` (the hash of the main source) and `vendorSha256` (the hash of the vendored dependencies). If you forget to update `vendorSha256`, the build will fail.
 The failure is often discovered only after a long compile, forcing you to start the whole process over again. A more detailed (and technical) info on this issues may be accessed on the
-blog of the `gomod2nix` authors [[3]](#3).
+blog of the `gomod2nix` authors [[3]](#3). `gomod2nix`, which we are going to use in this workshop, follows the same vendoring strategy that  buildGoModule  uses, but rather than copying
+all of the source files into a single derivation, it creates symbolic links to those files. Because the dependencies are linked instead of embedded, each dependency can be downloaded once
+and stored as a separate derivation. Identical dependency trees are then shared automatically across any number of Go packages in the Nix store, avoiding duplicate copies. So, enough theory,
+let's get our hands dirty!
 
+## Study case: u-root
+u‑root is a lightweight, Go‑based initramfs and early‑boot framework that lets you build and run a fully functional Linux userspace directly from a
+single Go binary (built from a small set of Go‑compiled tools). Thanks to Go’s static linking and cross‑compilation capabilities, u‑root eliminates the
+need for traditional shell scripts, busybox, and complex build chains. Now, its `go.sum` file is ca. 550 lines long - lots of dependencies. Thus it is a perfect project to Nix-ify!
+</br>
+Please make sure that you have followed steps described in [bootstrap](../bootstrap/README.md) section!
 
 
 

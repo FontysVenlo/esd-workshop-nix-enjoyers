@@ -1,9 +1,8 @@
-# Dockerfile to create an environment that contains the Nix package manager.
-
 FROM alpine
 
-# Enable HTTPS support in wget and set nsswitch.conf to make resolution work within containers
-RUN apk add --no-cache --update openssl \
+# Enable HTTPS support in wget and set nsswitch.conf to make resolution work within containers,
+# and also add git so that we can clone repos with example projects.
+RUN apk add --no-cache --update openssl git \
   && echo hosts: files dns > /etc/nsswitch.conf
 
 # Download Nix and install it into the system.
@@ -21,7 +20,9 @@ RUN wget https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-$(
   && rm -rf /var/cache/apk/* \
   && /nix/var/nix/profiles/default/bin/nix-collect-garbage --delete-old \
   && /nix/var/nix/profiles/default/bin/nix-store --optimise \
-  && /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents
+  && /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents \
+  && git clone https://github.com/u-root/u-root.git && cd u-root \
+  && /nix/var/nix/profiles/default/bin/nix flake init -t github:FontysVenlo/esd-workshop-nix-enjoyers#golang && cd / 
 
 ONBUILD ENV \
     ENV=/etc/profile \
