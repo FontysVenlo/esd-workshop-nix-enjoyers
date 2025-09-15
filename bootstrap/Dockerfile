@@ -21,6 +21,9 @@ RUN wget https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-$(
   && /nix/var/nix/profiles/default/bin/nix-collect-garbage --delete-old \
   && /nix/var/nix/profiles/default/bin/nix-store --optimise \
   && /nix/var/nix/profiles/default/bin/nix-store --verify --check-contents \
+  # For the rest of the team: next two lines should look similar for your templates:
+  # clone the repo of whatever project you want to use, go to that dir, use our main
+  # flake with #tag_of_your_template instead of #golang, and go back to the /
   && git clone https://github.com/u-root/u-root.git && cd u-root \
   && /nix/var/nix/profiles/default/bin/nix flake init -t github:FontysVenlo/esd-workshop-nix-enjoyers#golang && cd / 
 
