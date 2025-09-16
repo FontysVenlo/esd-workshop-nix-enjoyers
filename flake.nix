@@ -12,6 +12,12 @@
         path = ./golang-flake-template/template;
         description = "Golang template";
       };
+
+      python = {
+        path = ./python-flake-template/;
+        description = "Python template (custom flake + exercises)";
+      };
+
       default = self.templates.golang;
     };
   };
