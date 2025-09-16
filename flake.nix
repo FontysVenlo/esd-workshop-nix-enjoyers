@@ -14,7 +14,7 @@
       };
 
       python = {
-        path = ./python-flake-template/;
+        path = ./python-flake-template;
         description = "Python template (custom flake + exercises)";
       };
 
