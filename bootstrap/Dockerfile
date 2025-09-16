@@ -25,7 +25,9 @@ RUN wget https://nixos.org/releases/nix/nix-${NIX_VERSION}/nix-${NIX_VERSION}-$(
   # clone the repo of whatever project you want to use, go to that dir, use our main
   # flake with #tag_of_your_template instead of #golang, and go back to the /
   && git clone https://github.com/u-root/u-root.git && cd u-root \
-  && /nix/var/nix/profiles/default/bin/nix flake init -t github:FontysVenlo/esd-workshop-nix-enjoyers#golang && cd / 
+  && /nix/var/nix/profiles/default/bin/nix flake init -t github:FontysVenlo/esd-workshop-nix-enjoyers#golang && cd / \
+  && mkdir -p /python-exercises && cd /python-exercises \
+  && /nix/var/nix/profiles/default/bin/nix flake init -t github:FontysVenlo/esd-workshop-nix-enjoyers#python && cd /
 
 ONBUILD ENV \
     ENV=/etc/profile \
