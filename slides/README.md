@@ -6,7 +6,7 @@ Teach them about what Nix is as a package manager.
 # 2. Topic and structure
 ## Topic
 Nix
-## Structure
+## Structure (total time we have is 45 minutes, adjust the structure!)
 - hook or "ice breaker" anything that doesn't make the start awful, something sort of - does audience know [anything related to what nix aims to solve] 5 min
 - Introduction 10 min
 	- what is Nix (package manager)?
@@ -40,7 +40,7 @@ Michal will work on Rust/Go exericses
 Kornel will work on TS exercises
 # 5. Planning time management
 ## Planning
-In total we have 90 minutes for a workshop.
+In total we have 45 minutes for a workshop (they mentioned 2 workshops = 90 minutes)
 We should buffer for perhaps 2-5 minutes for spontaneous questions from the audience, in between sections.
 # 6. Prepare technology and room for the workshop
 ## GitHub Repository
