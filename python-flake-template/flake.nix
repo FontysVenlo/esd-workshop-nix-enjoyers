@@ -20,10 +20,13 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         # === EDIT HERE (Exercise 1) ===
-        # Select the Python version
         python = pkgs.python310;
 
-        pythonEnv = python.withPackages (_: []);
+        pythonEnv = python.withPackages (ps: with ps; [
+          pip
+        # === EDIT HERE (Exercise 2) ===
+        # incl required Python packages
+        ]);
 
         # Wrapper for hello_world.py (keeps LF line endings)
         helloBin = pkgs.writeShellScriptBin "hello"
