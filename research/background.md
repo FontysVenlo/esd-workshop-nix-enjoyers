@@ -22,7 +22,23 @@ exactly what runs on the target hardware [[8]](#8).
 
 ## Nix
 
+The idea behind Nix emerged from the PhD research of Eelco Dolstra at the
+University of Utrecht.  In his 2004 dissertation “The Nix Packages
+Collection – A Functional Package Manager” [[7]](#7), he proposed treating
+package management as a purely functional transformation: a package is built
+by a function whose result is immutable and identified by a hash of all its
+inputs. The first prototype, released in 2003, was a command‑line tool for
+GNU/Linux that stored each built package in a global `/nix/store` directory
+under a name derived from that hash. Because the store was read‑only,
+multiple versions of the same package could coexist without conflict, and
+upgrades could be performed atomically.
+In 2006, three years after initial proposal of Nix by Eelco Dolstra, Armijn Hemel in his Master thesis,
+introduced NixOS - a GNU/Linux distribution based on Nix as a package manager and a configuration tool [[9]](#9).
+Couple of years later, and hundreds of thousand packages later, in 2015, the NixOS foundation was founded [[10]](#10).
+Since 2003, Nix has been a subject of many scientific work, the full collection of these can be found on the dedicated website [[11]](#11).
+
 ## Nix Flakes
+
 
 ## References
 
@@ -34,3 +50,6 @@ exactly what runs on the target hardware [[8]](#8).
 <a id="6">[6]</a> [Reproducible Builds: Increasing the Integrity of Software Supply Chains](https://doi.org/10.1109/MS.2021.3073045) \
 <a id="7">[7]</a> [Nix: A Safe and Policy-Free System for Software Deployment](https://edolstra.github.io/pubs/nspfssd-lisa2004-final.pdf) \
 <a id="8">[8]</a> [Caliptra GitHub GCP Runner Infrastructure](https://github.com/chipsalliance/caliptra-sw/tree/main/ci-tools/github-runner) \
+<a id="9">[9]</a> [Purely Functional System Configuration Management](https://www.usenix.org/legacy/event/hotos07/tech/full_papers/dolstra/dolstra_html/) \
+<a id="10">[10]</a> [NixOS Foundation](https://github.com/NixOS/foundation) \
+<a id="11">[11]</a> [NixOS - Research and Scientific Publications](https://nixos.org/research/) \
