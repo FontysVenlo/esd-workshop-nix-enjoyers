@@ -5,6 +5,5 @@ of the remaining parts.
 
 ## Table of Contents
  - [Background](background.md)
- - [Research Questions and Hypothesis](rqs.md)
- - [Methodology](methods.md)
+ - [Research Questions](rqs.md)
  - [Results and Discussion](results.md)

@@ -1,9 +1,36 @@
 ## Background
 
 Over the last couple of decades we could have observe lots of efforts in easing up deployment of
-software projects at scale. (note to self, there should be examples here, not only docker and guix but also build
-systems such as ninja, cmake and so on).
-One major issue (ref) is to ensure reproducibility, that is, to ensure that project that runs on the developers machine
-will also run on customer systems (vaguely speaking). One of the tools that gain in popularity over the last 10 years (ref)
-is Nix package manager - notably being used by Google in come of their newer projects (ref to Caliptra repo).
- 
+software projects at scale, such as Docker [[1]](#1), GNU Guix [[2]](#2), or Ansible [[3]](#3).
+A recurring difficulty in modern software development is reproducibility:
+the guarantee that a project that builds and runs on a developer’s
+workstation will behave identically on a customer’s system, a CI runner, or
+a production server [[4]](#4)[[5]](#5)[[6]](#6).
+
+One of the tools that has gained noticeable traction over the past decade
+for tackling reproducibility is the Nix package manager. Nix treats package
+builds as pure functions: the output store path is a cryptographic hash of
+all inputs (source code, compiler version, build flags, environment
+variables, etc.). Consequently, if two developers invoke the same Nix
+expression on different machines, the resulting store path (and thus the
+binary) will be identical [[7]](#7).
+
+These properties have led several large organisations to adopt Nix in
+production. For example, Google uses Nix internally for the Caliptra
+project’s CI infrastructure, ensuring that firmware generated in the cloud matches
+exactly what runs on the target hardware [[8]](#8).
+
+## Nix
+
+## Nix Flakes
+
+## References
+
+<a id="1">[1]</a> [An Introduction to Docker and Analysis of its Performance](https://www.researchgate.net/profile/Harrison-Bhatti/publication/318816158_An_Introduction_to_Docker_and_Analysis_of_its_Performance/links/61facc0c007fb504472fd6c7/An-Introduction-to-Docker-and-Analysis-of-its-Performance.pdf) \
+<a id="2">[2]</a> [Building a Secure Software Supply Chain with GNU Guix](https://arxiv.org/pdf/2206.14606) \
+<a id="3">[3]</a> [Unleashing Full Potential of Ansible Framework: University Labs Administration](https://doi.org/10.23919/FRUCT.2018.8468270) \
+<a id="4">[4]</a> [Reproducibility of Build Environments through Space and Time](https://arxiv.org/abs/2402.00424) \
+<a id="5">[5]</a> [Reproducibility in Software Engineering](https://zenodo.org/records/15315531) \
+<a id="6">[6]</a> [Reproducible Builds: Increasing the Integrity of Software Supply Chains](https://doi.org/10.1109/MS.2021.3073045) \
+<a id="7">[7]</a> [Nix: A Safe and Policy-Free System for Software Deployment](https://edolstra.github.io/pubs/nspfssd-lisa2004-final.pdf) \
+<a id="8">[8]</a> [Caliptra GitHub GCP Runner Infrastructure](https://github.com/chipsalliance/caliptra-sw/tree/main/ci-tools/github-runner) \
