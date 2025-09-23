@@ -38,7 +38,16 @@ Couple of years later, and hundreds of thousand packages later, in 2015, the Nix
 Since 2003, Nix has been a subject of many scientific work, the full collection of these can be found on the dedicated website [[11]](#11).
 
 ## Nix Flakes
-
+Flakes are an experimental feature [[12]](#12), introduced with Nix 2.4 release in 2021 [[13]](#13). While still technically "unstable" [[14]](#14), flakes
+are currently used in most of the Nix projects [[15]](#15). They aim to uniform a structure for Nix projects, pin a specific versions of each dependencies,
+and sharing dependencies via lock files. This allows to improve reproductibility of Nix installations. At its core, what we call a "flake" is a source tree (usually a git repository), with `flake.nix` and `flake.lock`
+files in the root directory of a source tree. Additionally, the official NixOS documentation [[16]](#16) specifies following properties of the Flakes:
+- An (Nix) installation may contain any number of flakes, independent of each other or even call each other.
+- The contents of `flake.nix` file follow the uniform naming schema for expressing packages and dependencies on Nix.
+- Flakes use the standard Nix protocols, including the URL-like syntax [[17]](#17) for specifying repositories and package names.
+- To simplify the long URL syntax with shorter names, flakes uses a registry of symbolic identifiers.
+- Flakes also allow for locking references and versions that can then be easily queried and updated programmatically.
+- Nix command-line interface [[18]](#18) accepts flake references for expressions that build, run, and deploy packages.
 
 ## References
 
@@ -53,3 +62,11 @@ Since 2003, Nix has been a subject of many scientific work, the full collection 
 <a id="9">[9]</a> [Purely Functional System Configuration Management](https://www.usenix.org/legacy/event/hotos07/tech/full_papers/dolstra/dolstra_html/) \
 <a id="10">[10]</a> [NixOS Foundation](https://github.com/NixOS/foundation) \
 <a id="11">[11]</a> [NixOS - Research and Scientific Publications](https://nixos.org/research/) \
+<a id="12">[12]</a> [Experimental Features](https://nix.dev/manual/nix/stable/development/experimental-features.html#xp-feature-flakes) \
+<a id="13">[13]</a> [Release 2.4 (2021-11-01)](https://nix.dev/manual/nix/2.31/release-notes/rl-2.4.html) \
+<a id="14">[14]</a> [flakes stabilisation](https://github.com/NixOS/nix/milestone/27) \
+<a id="15">[15]</a> [Nix for simplified configuration management in in an enterprise environment](https://oda.oslomet.no/oda-xmlui/bitstream/handle/11250/3212253/no.oslomet:inspera:348177680:185530073.pdf?sequence=1) \
+<a id="16">[16]</a> [Flakes - NixOS Wiki](https://nixos.wiki/wiki/flakes) \
+<a id="17">[17]</a> [URL-like syntax](https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-flake#url-like-syntax) \
+<a id="18">[18]</a> [nix registry](https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-registry) \
+<a id="19">[19]</a> [nix cli](https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix.html)
