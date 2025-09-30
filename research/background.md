@@ -23,7 +23,7 @@ exactly what runs on the target hardware [[8]](#8).
 ## Nix
 
 The idea behind Nix emerged from the PhD research of Eelco Dolstra at the
-University of Utrecht.  In his 2004 dissertation “The Nix Packages
+University of Utrecht. In his 2004 dissertation “The Nix Packages
 Collection – A Functional Package Manager” [[7]](#7), he proposed treating
 package management as a purely functional transformation: a package is built
 by a function whose result is immutable and identified by a hash of all its
