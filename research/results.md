@@ -4,6 +4,37 @@ This section describes the findings related to the [RQs](/research/rqs.md).
 
 ### RQ1 - How does Nix differ from other comparable solutions?
 
+**Nix** is a *purely functional package manager* and build system that emphasizes reproducible builds and declarative system configuration. It differs significantly from other tools that solve similar problems. Below we compare Nix with two notable solutions: **Docker** (containerization for reproducible environments) and **GNU Guix** (another functional package manager inspired by Nix).
+
+#### **RQ1-SQ1: Nix vs. Docker**
+
+Both Nix and Docker can provide reproducible software environments, but they use fundamentally different approaches [[1]](#1)[[2]](#2):
+
+- **Scope and Purpose:** Nix is a package manager and build tool for installing software and configuring systems, whereas Docker is a container platform for bundling applications with their environment and running them in isolated processes [[2]](#2).
+- **Reproducibility Guarantees:** Nix builds packages in a *hermetic, deterministic environment*. Each build’s inputs are fully specified, and Nix hashes all inputs to ensure the output is the same given the same inputs [[1]](#1)[[3]](#3). Docker can encapsulate an environment in an image, but building that image is not inherently deterministic. Running docker build twice might produce different results if external package sources have changed [[1]](#1).
+- **Isolation vs. Integration:** Docker provides **OS-level isolation** using kernel namespaces and cgroups, essentially running processes in a separate containerized filesystem and process space. This makes Docker great for deployment [[2]](#2). Nix, on the other hand, operates within the host OS. It installs packages into the Nix store and can set up isolated development shells, but processes run on the host [[1]](#1).
+- **Dependency Management:** Nix has **first-class package management** via the nixpkgs repository, whereas Docker relies on whatever package manager is inside the container (e.g., apt, apk) [[2]](#2).
+- **Storage Model:** Nix stores packages in the *Nix store* with unique hashes, ensuring isolation between builds [[4]](#4). Docker uses layered filesystem images meaning each Dockerfile command creates a new layer identified by a content hash [[2]](#2).
+- **Composability of Environments:** Nix allows easy combination of dependencies in one environment. In Docker, images are built from one base image, so you cannot merge two bases directly [[1]](#1).
+- **Resource Efficiency:** Nix environments share binaries through the store. Docker images can become large due to duplicated libraries [[5]](#5).
+- **Use Cases and Deployment:** Docker is ideal for *deploying isolated services*. Nix excels at *development environments* and reproducible builds [[1]](#1)[[2]](#2).
+- **Learning Curve and Popularity:** Docker is easier for beginners and widely adopted. Nix has a steeper learning curve but offers stronger reproducibility [[1]](#1)[[2]](#2).
+
+**Summary:** Nix provides *fine-grained reproducibility and package management*, while Docker provides *runtime isolation*. They can complement each other: Nix can build Docker images without Dockerfiles [[2]](#2).
+
+#### **RQ1-SQ2: Nix vs. GNU Guix**
+
+**GNU Guix** is directly inspired by Nix and shares much of its design. But they differ in key ways:
+
+- **Philosophy and Governance:** Guix is a GNU project and strictly includes only free software by policy [[6]](#6). Nix is more pragmatic: it allows non-free software[[8]](#8) if enabled via allowUnfree [[6]](#6).
+- **Implementation Language:** Nix uses its own DSL (Domain-Specific Language) for packages and is implemented in C++ [[4]](#4). Guix uses **Guile Scheme** [[8]](#8), providing a general-purpose Lisp environment for package definitions and configuration [[6]](#6).
+- **System Integration:** NixOS uses **systemd** as its init system, while Guix System uses **GNU Shepherd**, keeping everything in Scheme [[6]](#6).
+- **Package Repositories:** Nixpkgs is much larger than Guix’s repository, as Guix excludes non-free software and has a smaller contributor base [[6]](#6)[[7]](#7).
+- **Platform Support:** Guix supports both Linux and GNU Hurd, while Nix supports Linux, macOS, and *BSD (Unix-like operating systems) [[6]](#6).
+- **Community:** Nix has broader adoption and a large community [[8]](#8), while Guix’s smaller community emphasizes GNU philosophy and Scheme tooling [[6]](#6)[[7]](#7).
+
+**Summary:** Both Nix and Guix are *functional package managers* with reproducibility at their core. Nix is larger, older, and more pragmatic, while Guix is philosophically strict and Scheme-based. They are similar in goals but differ in ecosystem and implementation.
+
 
 ### RQ2 - In which situations Nix should be a preferred as a deployment solution?
 When reproducibility, composability, and multi‑environment consistency are
@@ -51,6 +82,16 @@ Nix is engineered to provide three major benefits: **reproducibility**, **isolat
 Additional drawbacks include a **steep learning curve**, **difficult error messages**, potential **disk space bloat** from retained environments, and **extra barriers for onboarding new developers**. For these reasons, Nix is overkill in projects that **do not actively require robust reproducibility**, **advanced dependency management**, or **infrastructure-as-code style system configuration**. In such cases, standard package managers and imperative setup will suffice and be much easier to maintain [1][6][4].
 
 ## Sources
+
+TODO: Adjust numbers \
+<a id="1">[1]</a> [Connor Brewster: “Will Nix Overtake Docker?” (Replit Blog)](https://replit.com/site/blog/nix-vs-docker)  
+<a id="2">[2]</a> [Sander van der Burg: *On using Nix and Docker as deployment automation solutions: similarities and differences*](https://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployment.html)  
+<a id="3">[3]</a> [Reproducible Builds Project: Increasing the Integrity of Software Supply Chains](https://reproducible-builds.org/)  
+<a id="4">[4]</a> [Eelco Dolstra et al.: *Nix: A Safe and Policy-Free System for Software Deployment* (JFP Paper)](https://edolstra.github.io/pubs/nixos-jfp-final.pdf)  
+<a id="5">[5]</a> [HashBlock Blog: “Why I Ditched Docker for Nix: Reproducible Builds Without the Bloat”](https://medium.com/@connect.hashblock/why-i-ditched-docker-for-nix-reproducible-builds-without-the-bloat-d21f44250181)  
+<a id="6">[6]</a> [Loïc Reynier: “Do GUIX and NixOS differ architecturally?” (Unix StackExchange Answer)](https://unix.stackexchange.com/questions/754491/do-guix-and-nixos-differ-architecturally)  
+<a id="7">[7]</a> [System Crafters Forum: “NixOS vs Guix: A non-programmer’s perspective”](https://forum.systemcrafters.net/t/nixos-vs-guix-a-non-programmers-novice-perspective/875)  
+<a id="8">[8]</a> [Benoît Jacolin: “How Guix compares to Nix and vice versa” (Personal Blog)](https://blog.benoitj.ca/2023-10-20-how-guix-compare-to-nix-and-vice-versa/)  
 
 TODO: adjust numbering \
 <a id="1">[1]</a> [NixOS: A purely functional Linux distribution](https://dl.acm.org/doi/10.1017/S0956796810000195) \
