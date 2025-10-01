@@ -38,7 +38,7 @@ Both Nix and Docker can provide reproducible software environments, but they use
 
 ### RQ2 - In which situations Nix should be a preferred as a deployment solution?
 When reproducibility, composability, and multi‑environment consistency are
-decisive, Nix (and NixOS [[1]](#1)/NixOps [[2]](#2)/Hydra[[3]](#3)) often out‑shine more traditional
+decisive, Nix (and NixOS [[9]](#9)/NixOps [[10]](#10)/Hydra[[11]](#11)) often out‑shine more traditional
 deployment tools.
 
 Because Nix treats the entire system state as a pure functional value, the
@@ -46,32 +46,32 @@ same declarative expression always yields the identical set of packages,
 configuration files, and services regardless of the host that evaluates it.
 This property eliminates “it works on my machine” bugs and makes roll‑backs
 as simple as switching to a previous store path — a capability that is
-hard to guarantee with ad‑hoc scripts or mutable package managers [[4]](#4)[[5]](#5).
+hard to guarantee with ad‑hoc scripts or mutable package managers [[12]](#12)[[13]](#13).
 Large organisations that need to ship the same binary stack to developers,
-CI runners [[6]](#6), and production clusters [[7]](#7) therefore adopt Nix to
-guarantee that every node sees exactly the same dependency graph [[8]](#8).
+CI runners [[14]](#14), and production clusters [[15]](#15) therefore adopt Nix to
+guarantee that every node sees exactly the same dependency graph [[16]](#16).
 
 Nix shines in environments where many heterogeneous targets must be kept in
 lock‑step.
 - Hybrid cloud/multi‑cloud deployments. NixOps can describe VMs,
   containers, or bare‑metal machines in a single Nix expression and then
   materialise the same configuration on AWS, GCP, Azure, or on‑premise
-  hardware with a single command [[9]](#9). Companies that migrate workloads
+  hardware with a single command [[17]](#17). Companies that migrate workloads
   between clouds use this to avoid divergent configuration drift.
 - Continuous‑integration pipelines. Hydra, the Nix‑driven CI server, can
   rebuild every commit in a deterministic sandbox, catch build‑time
   regressions early, and publish the resulting store paths as immutable
-  artefacts for later deployment [[10]](#10). Projects such as the Haskell compiler
+  artefacts for later deployment [[18]](#18). Projects such as the Haskell compiler
   (GHC) and the Rust toolchain already rely on Hydra for reproducible releases.
 - Developer workstations and reproducible dev environments. Using `nix
   develop` each contributor can spin up a sandbox that
   contains exactly the libraries, compilers, and tooling required by the
-  project, regardless of the host Operating System [[11]](#11). This eliminates “works locally
+  project, regardless of the host Operating System [[19]](#19). This eliminates “works locally
   but not on CI” failures common in the polyglot monorepos.
 
 When security and auditability are paramount, Nix’s immutable store also
 provides tangible benefits, such as advanced rollback mechanism, easier compliance assertion,
-increased integrity (simply follows from functional nature of Nix) [[12]](#12).
+increased integrity (simply follows from functional nature of Nix) [[20]](#20).
 
 ### RQ3 - In which situations Nix does not bring a value to the project and may be an overkill?
 Nix is engineered to provide three major benefits: **reproducibility**, **isolation**, and **declarative/atomic configuration**. However, adopting Nix introduces significant complexity that is often unnecessary when these benefits are not essential to a project [4][6][9].
@@ -81,9 +81,7 @@ Nix is engineered to provide three major benefits: **reproducibility**, **isolat
 
 Additional drawbacks include a **steep learning curve**, **difficult error messages**, potential **disk space bloat** from retained environments, and **extra barriers for onboarding new developers**. For these reasons, Nix is overkill in projects that **do not actively require robust reproducibility**, **advanced dependency management**, or **infrastructure-as-code style system configuration**. In such cases, standard package managers and imperative setup will suffice and be much easier to maintain [1][6][4].
 
-## Sources
-
-TODO: Adjust numbers \
+## References
 <a id="1">[1]</a> [Connor Brewster: “Will Nix Overtake Docker?” (Replit Blog)](https://replit.com/site/blog/nix-vs-docker)  
 <a id="2">[2]</a> [Sander van der Burg: *On using Nix and Docker as deployment automation solutions: similarities and differences*](https://sandervanderburg.blogspot.com/2020/07/on-using-nix-and-docker-as-deployment.html)  
 <a id="3">[3]</a> [Reproducible Builds Project: Increasing the Integrity of Software Supply Chains](https://reproducible-builds.org/)  
@@ -93,19 +91,18 @@ TODO: Adjust numbers \
 <a id="7">[7]</a> [System Crafters Forum: “NixOS vs Guix: A non-programmer’s perspective”](https://forum.systemcrafters.net/t/nixos-vs-guix-a-non-programmers-novice-perspective/875)  
 <a id="8">[8]</a> [Benoît Jacolin: “How Guix compares to Nix and vice versa” (Personal Blog)](https://blog.benoitj.ca/2023-10-20-how-guix-compare-to-nix-and-vice-versa/)  
 
-TODO: adjust numbering \
-<a id="1">[1]</a> [NixOS: A purely functional Linux distribution](https://dl.acm.org/doi/10.1017/S0956796810000195) \
-<a id="2">[2]</a> [NixOps](https://github.com/NixOS/nixops) \
-<a id="3">[3]</a> [Hydra](https://github.com/NixOS/hydra) \
-<a id="4">[4]</a> [Purely functional package manager](https://nixos.org/manual/nix/stable/#sec-purely-functional) \
-<a id="5">[5]</a> [Nix: A Safe and Policy-Free System for Software Deployment](https://edolstra.github.io/pubs/nspfssd-lisa2004-final.pdf) \
-<a id="6">[6]</a> [Caliptra GitHub GCP Runner Infrastructure](https://github.com/chipsalliance/caliptra-sw/tree/main/ci-tools/github-runner) \
-<a id="7">[7]</a> [Docker Was Too Slow, So We Replaced It: Nix in Production](https://www.socallinuxexpo.org/scale/22x/presentations/docker-was-too-slow-so-we-replaced-it-nix-production) \
-<a id="8">[8]</a> [Reproducible Builds: Increasing the Integrity of Software Supply Chains](https://doi.org/10.1109/MS.2021.3073045) \
-<a id="9">[9]</a> [NixOps Documentation](https://nixops.readthedocs.io/en/latest/introduction.html) \
-<a id="10">[10]</a> [Hydra: A Declarative Approach to Continuous Integration](https://edolstra.github.io/pubs/hydra-scp-submitted.pdf) \
-<a id="11">[11]</a> [Per-Project Development Environments with Nix](https://mtlynch.io/notes/nix-dev-environment/) \
-<a id="12">[12]</a> [Nix as a declarative solution for embedded security challenges and system administration problems](https://www.utupub.fi/bitstream/handle/10024/180653/Korte_Eino_Thesis.pdf?sequence=1) \
+<a id="9">[9]</a> [NixOS: A purely functional Linux distribution](https://dl.acm.org/doi/10.1017/S0956796810000195) \
+<a id="10">[10]</a> [NixOps](https://github.com/NixOS/nixops) \
+<a id="11">[11]</a> [Hydra](https://github.com/NixOS/hydra) \
+<a id="12">[12]</a> [Purely functional package manager](https://nixos.org/manual/nix/stable/#sec-purely-functional) \
+<a id="13">[13]</a> [Nix: A Safe and Policy-Free System for Software Deployment](https://edolstra.github.io/pubs/nspfssd-lisa2004-final.pdf) \
+<a id="14">[14]</a> [Caliptra GitHub GCP Runner Infrastructure](https://github.com/chipsalliance/caliptra-sw/tree/main/ci-tools/github-runner) \
+<a id="15">[15]</a> [Docker Was Too Slow, So We Replaced It: Nix in Production](https://www.socallinuxexpo.org/scale/22x/presentations/docker-was-too-slow-so-we-replaced-it-nix-production) \
+<a id="16">[16]</a> [Reproducible Builds: Increasing the Integrity of Software Supply Chains](https://doi.org/10.1109/MS.2021.3073045) \
+<a id="17">[17]</a> [NixOps Documentation](https://nixops.readthedocs.io/en/latest/introduction.html) \
+<a id="18">[18]</a> [Hydra: A Declarative Approach to Continuous Integration](https://edolstra.github.io/pubs/hydra-scp-submitted.pdf) \
+<a id="19">[19]</a> [Per-Project Development Environments with Nix](https://mtlynch.io/notes/nix-dev-environment/) \
+<a id="20">[20]</a> [Nix as a declarative solution for embedded security challenges and system administration problems](https://www.utupub.fi/bitstream/handle/10024/180653/Korte_Eino_Thesis.pdf?sequence=1) \
 
 TODO: please make these clickable and adjust numbering (only to be done after all RQs are done) \
 [1] https://www.reddit.com/r/NixOS/comments/1ej6xu9/what_are_some_downsides_of_nix/  
