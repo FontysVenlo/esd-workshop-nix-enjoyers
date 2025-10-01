@@ -25,7 +25,7 @@
         pythonEnv = python.withPackages (ps: with ps; [
           pip
         # === EDIT HERE (Exercise 2) ===
-        # incl required Python packages
+
         ]);
 
         # Wrapper for hello_world.py (keeps LF line endings)
@@ -33,6 +33,11 @@
           (builtins.replaceStrings ["\r\n"] ["\n"] ''
             exec ${pythonEnv}/bin/python ${./hello_world.py} "$@"
           '');
+
+          importBin = pkgs.writeShellScriptBin "import"
+            (builtins.replaceStrings ["\r\n"] ["\n"] ''
+              exec ${pythonEnv}/bin/python ${./missing_import.py} "$@"
+            '');
       in {
         # Development shell (provides python + packages)
         devShells.default = pkgs.mkShell {
@@ -43,6 +48,11 @@
         apps.hello = {
           type = "app";
           program = "${helloBin}/bin/hello";
+        };
+
+        apps.import = {
+          type = "app";
+          program = "${importBin}/bin/import";
         };
       }
     );
