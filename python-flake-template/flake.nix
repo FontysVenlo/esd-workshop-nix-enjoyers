@@ -20,7 +20,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
 
         # === EDIT HERE (Exercise 1) ===
-        python = pkgs.python310;
+        python = pkgs.python311;
 
         pythonEnv = python.withPackages (ps: with ps; [
           pip
