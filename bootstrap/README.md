@@ -8,6 +8,8 @@ In this directory you will find files needed to setup the environment for the up
 
 ## Steps
 1. Build the docker image: `docker build . -t nix` 
-2. Run newely created image: `docker run -it nix@latest`
+2. Run newely created image: `docker run -it nix:latest`
 
 At this point you should have access to the shell in the NixOS Docker container!
+
+Now head to the README dedicated to the language you choose. Have fun!
