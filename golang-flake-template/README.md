@@ -40,7 +40,16 @@ exit
 ### 2. Building u-root
 Let's see whether the "generic" flake works for u-root without any modifications - run `nix build .#` and see what happens :)
 
-Hint: the shell inside the container is very ver minimal - you will need to use some text editor to modify flake.nix inside of the container [see `nix-env` manual](https://nixos.org/manual/nixpkgs/stable/#sec-building-environment)
+Hint: the shell inside the container is very very minimal - you will need to use some text editor to modify flake.nix inside of the container [see `nix-env` manual](https://nixos.org/manual/nixpkgs/stable/#sec-building-environment)
+
+When the build fails, follow the logs and see what is wrong: `nix log /nix/store/<hash>-u-root-v0.14.0.drv`. You should see something like:
+```
+ERROR mkuimage error: couldn't add "/bin/bash:bin/bash" to archive: adding "/bin/bash" to archive failed because Lstat failed: lstat /bin/bash: no such file or directory
+```
+
+Your task now is to find out, based on what you have learned about Nix properties so far, why this error is occurs, and think about possible ways to fix it (HINT: there are at least two solutions).
+
+Have fun!
 
 ## References
 <a id="1">[1]</a> [buildNodeModules - The dumbest node to nix packaging tool yet!](https://discourse.nixos.org/t/buildnodemodules-the-dumbest-node-to-nix-packaging-tool-yet/35733) \
