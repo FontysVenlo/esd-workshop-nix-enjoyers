@@ -74,12 +74,12 @@ provides tangible benefits, such as advanced rollback mechanism, easier complian
 increased integrity (simply follows from functional nature of Nix) [[20]](#20).
 
 ### RQ3 - In which situations Nix does not bring a value to the project and may be an overkill?
-Nix is engineered to provide three major benefits: **reproducibility**, **isolation**, and **declarative/atomic configuration**. However, adopting Nix introduces significant complexity that is often unnecessary when these benefits are not essential to a project [4][6][9].
-* **If reproducibility is not a real-world priority**: Such as in single-developer, short-lived, or internal-only projects, where environment drift rarely causes issues, then the up-front complexity of Nix is not justified [10][4].
-* **If dependency isolation and avoiding conflicts are not pain points**: For example, projects working well with language-specific managers (`pip`/`npm`/`apt`), or those with very simple dependency stacks, then Nix's approach introduces more overhead than practical improvement [11][10].
-* **If atomic rollbacks and declarative configuration aren't business critical**: Such as projects with stable, rarely-changed setups, or those where rollbacks are handled through simpler means, the challenges of learning the Nix language and maintaining declarative configs outweigh the potential gains [9][4].
+Nix is engineered to provide three major benefits: **reproducibility**, **isolation**, and **declarative/atomic configuration**. However, adopting Nix introduces significant complexity that is often unnecessary when these benefits are not essential to a project [[22]](#22)[[23]](#23)[[24]](#24).
+* **If reproducibility is not a real-world priority**: Such as in single-developer, short-lived, or internal-only projects, where environment drift rarely causes issues, then the up-front complexity of Nix is not justified [[22]](#22)[[25]](#25).
+* **If dependency isolation and avoiding conflicts are not pain points**: For example, projects working well with language-specific managers (`pip`/`npm`/`apt`), or those with very simple dependency stacks, then Nix's approach introduces more overhead than practical improvement [[25]](#25)[[26]](#26).
+* **If atomic rollbacks and declarative configuration aren't business critical**: Such as projects with stable, rarely-changed setups, or those where rollbacks are handled through simpler means, the challenges of learning the Nix language and maintaining declarative configs outweigh the potential gains [[22]](#22)[[24]](#24).
 
-Additional drawbacks include a **steep learning curve**, **difficult error messages**, potential **disk space bloat** from retained environments, and **extra barriers for onboarding new developers**. For these reasons, Nix is overkill in projects that **do not actively require robust reproducibility**, **advanced dependency management**, or **infrastructure-as-code style system configuration**. In such cases, standard package managers and imperative setup will suffice and be much easier to maintain [1][6][4].
+Additional drawbacks include a **steep learning curve**, **difficult error messages**, potential **disk space bloat** from retained environments, and **extra barriers for onboarding new developers**. For these reasons, Nix is overkill in projects that **do not actively require robust reproducibility**, **advanced dependency management**, or **infrastructure-as-code style system configuration**. In such cases, standard package managers and imperative setup will suffice and be much easier to maintain [[21]](#21)[[22]](#22)[[23]](#23).
 
 ## References
 <a id="1">[1]</a> [Connor Brewster: “Will Nix Overtake Docker?” (Replit Blog)](https://replit.com/site/blog/nix-vs-docker)  
@@ -90,7 +90,6 @@ Additional drawbacks include a **steep learning curve**, **difficult error messa
 <a id="6">[6]</a> [Loïc Reynier: “Do GUIX and NixOS differ architecturally?” (Unix StackExchange Answer)](https://unix.stackexchange.com/questions/754491/do-guix-and-nixos-differ-architecturally)  
 <a id="7">[7]</a> [System Crafters Forum: “NixOS vs Guix: A non-programmer’s perspective”](https://forum.systemcrafters.net/t/nixos-vs-guix-a-non-programmers-novice-perspective/875)  
 <a id="8">[8]</a> [Benoît Jacolin: “How Guix compares to Nix and vice versa” (Personal Blog)](https://blog.benoitj.ca/2023-10-20-how-guix-compare-to-nix-and-vice-versa/)  
-
 <a id="9">[9]</a> [NixOS: A purely functional Linux distribution](https://dl.acm.org/doi/10.1017/S0956796810000195) \
 <a id="10">[10]</a> [NixOps](https://github.com/NixOS/nixops) \
 <a id="11">[11]</a> [Hydra](https://github.com/NixOS/hydra) \
@@ -103,16 +102,9 @@ Additional drawbacks include a **steep learning curve**, **difficult error messa
 <a id="18">[18]</a> [Hydra: A Declarative Approach to Continuous Integration](https://edolstra.github.io/pubs/hydra-scp-submitted.pdf) \
 <a id="19">[19]</a> [Per-Project Development Environments with Nix](https://mtlynch.io/notes/nix-dev-environment/) \
 <a id="20">[20]</a> [Nix as a declarative solution for embedded security challenges and system administration problems](https://www.utupub.fi/bitstream/handle/10024/180653/Korte_Eino_Thesis.pdf?sequence=1) \
-
-TODO: please make these clickable and adjust numbering (only to be done after all RQs are done) \
-[1] https://www.reddit.com/r/NixOS/comments/1ej6xu9/what_are_some_downsides_of_nix/  
-[2] https://jvns.ca/blog/2023/02/28/some-notes-on-using-nix/  
-[3] https://discourse.nixos.org/t/market-nix-not-as-a-package-manager-but-as-a-build-tool-and-dependency-management-tool/47432  
-[4] https://nixos-and-flakes.thiscute.world/introduction/advantages-and-disadvantages  
-[5] https://dev.to/arnu515/the-one-thing-i-do-not-like-about-the-nix-package-manager-and-a-fix-for-it-33ln  
-[6] https://blog.graysonhead.net/posts/nixos-hype/  
-[7] https://discourse.haskell.org/t/whats-all-the-hype-with-nix/2593  
-[8] https://news.ycombinator.com/item?id=29081826  
-[9] https://nixos.org/guides/how-nix-works/  
-[10] https://news.ycombinator.com/item?id=30060895  
-[11] https://www.zenoix.com/posts/get-started-with-nix-and-home-manager/
+<a id="21">[21]</a> https://www.reddit.com/r/NixOS/comments/1ej6xu9/what_are_some_downsides_of_nix/  \
+<a id="22">[22]</a> https://nixos-and-flakes.thiscute.world/introduction/advantages-and-disadvantages  \
+<a id="23">[23]</a> https://blog.graysonhead.net/posts/nixos-hype/  \
+<a id="24">[24]</a> https://nixos.org/guides/how-nix-works/  \
+<a id="25">[25]</a> https://news.ycombinator.com/item?id=30060895  \
+<a id="26">[26]</a> https://www.zenoix.com/posts/get-started-with-nix-and-home-manager/
