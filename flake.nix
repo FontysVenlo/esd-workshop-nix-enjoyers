@@ -18,6 +18,11 @@
         description = "Python template (custom flake + exercises)";
       };
 
+      typescript = {
+        path = ./ts-flake-template;
+        description = "TypeScript template";
+      };
+
       default = self.templates.golang;
     };
   };
