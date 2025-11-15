@@ -1,21 +1,35 @@
 {
+  description = "TypeScript Nix flake workshop template";
+
   inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     flake-utils.url = "github:numtide/flake-utils";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
-  outputs = inputs:
-    inputs.flake-utils.lib.eachDefaultSystem (system:
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = (import (inputs.nixpkgs) { inherit system; });
+        pkgs = import nixpkgs { inherit system; };
+        nodejs = pkgs.nodejs_20;
+        pnpm = pkgs.nodePackages_latest.pnpm;
       in {
-        devShell = pkgs.mkShell {
-          buildInputs=[
-            pkgs.nodePackages.pnpm
-            pkgs.nodePackages.typescript
-            pkgs.nodePackages.typescript-language-server
+        devShells.default = pkgs.mkShell {
+          packages = [
+            nodejs
+            pnpm
           ];
         };
-      }
-    );
+
+        apps.dev = {
+          type = "app";
+          program =
+            let
+              script = pkgs.writeShellScriptBin "ts-dev" ''
+                pnpm install
+                pnpm start
+              '';
+            in
+            "${script}/bin/ts-dev";
+        };
+      });
 }
