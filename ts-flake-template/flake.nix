@@ -19,17 +19,5 @@
             pnpm
           ];
         };
-
-        apps.dev = {
-          type = "app";
-          program =
-            let
-              script = pkgs.writeShellScriptBin "ts-dev" ''
-                pnpm install
-                pnpm start
-              '';
-            in
-            "${script}/bin/ts-dev";
-        };
       });
 }
