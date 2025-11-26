@@ -1,5 +1,4 @@
 .vscode/
-golang-flake-template/solution.md
 node_modules/
 .node_modules/
 built/*
